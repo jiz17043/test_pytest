@@ -44,8 +44,10 @@ jobs:
     needs: detect-flaky-tests
 
     steps:
-      - name: Checkout code
+      - name: Checkout flaky analysis script repo
         uses: actions/checkout@v4
+        with:
+          repository: jiz17043/detect_flaky
 
       - name: Download all test results
         run: |
