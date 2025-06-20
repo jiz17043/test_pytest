@@ -35,8 +35,9 @@ jobs:
       - name: Upload test result
         uses: actions/upload-artifact@v4
         with:
-          name: test-results
+          name: test-results-${{ matrix.iteration }}
           path: test-results/results-${{ matrix.iteration }}.xml
+
 
   analyze-results:
     runs-on: ubuntu-latest
@@ -46,11 +47,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Download all test result artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: test-results
-          path: all-results
+      - name: Download all test results
+        run: |
+          mkdir -p all-results
+          for i in 1 2 3 4 5; do
+            gh run download --name test-results-$i --dir all-results || echo "Skip missing artifact test-results-$i"
+          done
+        env:
+          GH_TOKEN: ${{ github.token }}
+
 
       - name: Set up Python
         uses: actions/setup-python@v5
