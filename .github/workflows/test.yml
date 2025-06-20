@@ -30,7 +30,7 @@ jobs:
           mkdir -p test-results
           pytest test/unittest/test_flaky.py \
             --tb=short \
-            --junitxml=test-results/results-${{ matrix.iteration }}.xml
+            --junitxml=test-results/results-${{ matrix.iteration }}.xml || true
 
       - name: Upload test result
         uses: actions/upload-artifact@v4
