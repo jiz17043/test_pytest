@@ -44,13 +44,12 @@ jobs:
             --junitxml=test-results/results-2.xml
 
       - name: Fail if second run fails
-        if: steps.second_run.outcome != 'success'
+        if: steps.first_run.outcome != 'success' && steps.second_run.outcome == 'failure'
         run: |
           echo "Test failed again. Not flaky — real failure."
           exit 1
 
       - name: Upload test results
-        if: steps.second_run.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
           name: test-results
