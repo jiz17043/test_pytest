@@ -61,8 +61,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: jiz17043/detect_flaky
+          path: detect_flaky_repo
 
       - name: Detect flaky tests
         if: steps.second_run.outcome == 'success'
         run: |
-          python scripts/detect_flaky_tests2.py
+          python detect_flaky_repo/scripts/detect_flaky_tests2.py
