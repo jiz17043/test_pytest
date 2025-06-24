@@ -1,4 +1,4 @@
-name: Flaky Test Detector
+name: Flaky Test Detector Alternative
 
 on:
   workflow_dispatch:
